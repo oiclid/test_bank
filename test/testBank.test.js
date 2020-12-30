@@ -1,7 +1,7 @@
 var TestBank = artifacts.require("./TestBank.sol");
 
 const ether = 10**18; // 1 ether = 1000000000000000000 wei
-const reward = 10 * ether;
+const reward = 5 * ether;
 const initialDepositsBalance = 25 * ether;
 
 contract("TestBank - basic initialization", function(accounts) {
@@ -12,7 +12,7 @@ contract("TestBank - basic initialization", function(accounts) {
   const eve = accounts[5];
   const fiona = accounts[6];
 
-  it("should reward 3 first clients with 10 balance", async () => {
+  it("should reward 5 first clients with 5 balance", async () => {
     const bank = await TestBank.deployed();
 
     await bank.enroll({from: alice});
@@ -37,7 +37,7 @@ contract("TestBank - basic initialization", function(accounts) {
 
     await bank.enroll({from: fiona});
     const fionaBalance = await bank.balance({from: fiona});
-    assert.equal(daveBalance, 0, "initial balance is incorrect");
+    assert.equal(fionaBalance, 0, "initial balance is incorrect");
 
     const depositsBalance = await bank.depositsBalance();
     assert.equal(depositsBalance, initialDepositsBalance, "initial balance is incorrect");
@@ -69,7 +69,7 @@ contract("TestBank - proper withdrawal", function(accounts) {
 
   it("should withdraw correct amount", async () => {
     const bank = await TestBank.deployed();
-    const deposit = 5 * ether;
+    const deposit = 4 * ether;
 
     await bank.deposit({from: alice, value: web3.utils.toBN(deposit)});
     await bank.withdraw(web3.utils.toBN(deposit), {from: alice});
