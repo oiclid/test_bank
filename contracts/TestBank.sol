@@ -5,7 +5,7 @@ pragma solidity ^0.7.0;
 
 contract TestBank {
     uint private clientNumber;
-    mapping (address => uint) private balances;
+    mapping (address => uint) external balances;
     address public owner;
 
   // Log the event about a deposit being made by an address and its amount
