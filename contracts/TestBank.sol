@@ -31,7 +31,7 @@ contract TestBank {
 
     /// @notice Deposit ether into bank, requires method is "payable"
     /// @return The balance of the user after the deposit is made
-    function deposit() abstract payable returns (uint8) {
+    function deposit() public payable returns (uint8) {
         balances[msg.sender] += msg.value;
         emit LogDepositMade(msg.sender, msg.value);
         return balances[msg.sender];
