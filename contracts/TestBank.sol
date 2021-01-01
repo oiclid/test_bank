@@ -2,12 +2,12 @@ pragma solidity ^0.7.0;
 
 
 contract TestBank {
-    uint8 private clientNumber;
-    mapping (address => uint8) private balances;
+    uint private clientNumber;
+    mapping (address => uint) private balances;
     address public owner;
 
   // Log the event about a deposit being made by an address and its amount
-    event LogDepositMade(address indexed accountAddress, uint8 amount);
+    event LogDepositMade(address indexed accountAddress, uint amount);
 
     // Constructor is "payable" so it can receive the initial funding of 30, 
     // required to reward the first 5 clients
@@ -21,7 +21,7 @@ contract TestBank {
     /// @notice Enroll a customer with the bank, 
     /// giving the first 5 of them 5 ether as reward
     /// @return The balance of the user after enrolling
-    function enroll() public returns (uint8) {
+    function enroll() public returns (uint) {
         if (clientNumber < 5) {
             clientNumber++;
             balances[msg.sender] = 5 ether;
@@ -38,7 +38,7 @@ contract TestBank {
     }
 
     
-    function withdraw(uint8 withdrawAmount) public returns (uint8 remainingBal) {
+    function withdraw(uint withdrawAmount) public returns (uint remainingBal) {
         // Check enough balance available, otherwise just return balance
         if (withdrawAmount <= balances[msg.sender]) {
             balances[msg.sender] -= withdrawAmount;
@@ -49,12 +49,12 @@ contract TestBank {
 
     /// @notice Just reads balance of the account requesting, so "constant"
     /// @return The balance of the user
-    function balance() public view returns (uint8) {
+    function balance() public view returns (uint) {
         return balances[msg.sender];
     }
 
     /// @return The balance of the Simple Bank contract
-    function depositsBalance() public view returns (uint8) {
+    function depositsBalance() public view returns (uint) {
         return address(this).balance;
     }
 }
