@@ -37,8 +37,7 @@ contract TestBank {
         return balances[msg.sender];
     }
 
-    /// @notice Withdraw ether from bank
-    /// @return The balance remaining for the user
+    
     function withdraw(uint withdrawAmount) public returns (uint remainingBal) {
         // Check enough balance available, otherwise just return balance
         if (withdrawAmount <= balances[msg.sender]) {
